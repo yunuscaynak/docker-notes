@@ -2,22 +2,16 @@
 
 Dockerfile, image'in nasil olusacagini anlatan tarif dosyasidir.
 
-### Basit bir akis
+Bu sayfa yeni baslayanlar icin "ilk Dockerfile" + temel komut referansi odagindadir.
 
-- `FROM`: hangi temel image ile baslanacak
-- `WORKDIR`: container icinde calisilan klasor
-- `COPY`: dosyalari image'e kopyalar
-- `RUN`: build sirasinda komut calistirir
-- `EXPOSE`: uygulamanin dinledigi portu belirtir
-- `CMD`: container acilinca calisacak komut
+### 4 adimda mantik
 
-### En temel build
+1. Temel image sec (`FROM`)
+2. Uygulama dosyalarini kopyala (`COPY`)
+3. Gerekli kurulum komutlarini calistir (`RUN`)
+4. Baslangic komutunu belirle (`CMD`)
 
-```bash
-docker build -t my-app:latest .
-```
-
-### Basit Dockerfile ornegi
+### Ilk Dockerfile ornegi
 
 ```dockerfile
 FROM node:18-alpine
@@ -28,3 +22,47 @@ COPY . .
 EXPOSE 3001
 CMD ["node", "app.js"]
 ```
+
+### Ilk build komutu
+
+```bash
+docker build -t my-app:latest .
+```
+
+### Sonra ne yaparsin
+
+```bash
+docker run -d --name my-app -p 3001:3001 my-app:latest
+```
+
+## 10.1 Dockerfile komut sozlugu
+
+- `FROM`: baslangic image'i secer.
+  Ornek: `FROM node:18-alpine`
+- `WORKDIR`: sonraki komutlarin calisacagi klasoru ayarlar.
+  Ornek: `WORKDIR /app`
+- `COPY`: dosyalari image'e kopyalar.
+  Ornek: `COPY package*.json ./`
+- `RUN`: build asamasinda komut calistirir.
+  Ornek: `RUN npm ci`
+- `ENV`: ortam degiskeni tanimlar.
+  Ornek: `ENV NODE_ENV=production`
+- `ARG`: sadece build sirasinda kullanilan degisken.
+  Ornek: `ARG APP_VERSION=1.0.0`
+- `EXPOSE`: container'in dinledigi portu belirtir.
+  Ornek: `EXPOSE 3001`
+- `CMD`: container acildiginda varsayilan komut.
+  Ornek: `CMD ["node", "app.js"]`
+- `ENTRYPOINT`: sabit calisma komutu; `CMD` arguman olabilir.
+  Ornek: `ENTRYPOINT ["node", "app.js"]`
+- `USER`: container icindeki calisan kullaniciyi degistirir.
+  Ornek: `USER node`
+- `HEALTHCHECK`: uygulama saglik kontrolu tanimlar.
+  Ornek: `HEALTHCHECK CMD curl -f http://localhost:3001/ || exit 1`
+
+## 10.2 Sik karistirilanlar
+
+- `RUN` vs `CMD`
+  `RUN` image olusurken calisir, `CMD` container baslayinca calisir.
+- `CMD` vs `ENTRYPOINT`
+  `CMD` kolay override edilir, `ENTRYPOINT` ana komut gibi davranir.

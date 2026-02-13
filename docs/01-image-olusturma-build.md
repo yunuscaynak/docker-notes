@@ -71,6 +71,18 @@ docker rm my-app
 docker run -d --name my-app -p 3001:3001 my-app:latest
 ```
 
+### Performans ipucu (build cache)
+
+Build hizini artirmak icin Dockerfile'da dosya kopyalama sirasina dikkat et:
+
+```dockerfile
+COPY package*.json ./
+RUN npm install
+COPY . .
+```
+
+Neden: Docker katmanlari cache'ler. Sadece kod degisince `npm install` katmani tekrar calismaz, cache'den gelir. Boylece rebuild sureleri belirgin sekilde kisalir.
+
 ### Ihtiyac olursa kullanilacak ek secenekler
 
 Cache kullanmadan sifirdan build:

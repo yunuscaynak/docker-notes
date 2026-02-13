@@ -66,3 +66,40 @@ docker run -d --name my-app -p 3001:3001 my-app:latest
   `RUN` image olusurken calisir, `CMD` container baslayinca calisir.
 - `CMD` vs `ENTRYPOINT`
   `CMD` kolay override edilir, `ENTRYPOINT` ana komut gibi davranir.
+
+## 10.3 Build cache ile hizli build
+
+Kural: SIK degisen dosyalari (`COPY . .`) sona birak, AZ degisen dosyalari (`package*.json`) once kopyala.
+
+Docker her satiri bir "katman" (layer) olarak build eder ve cache'ler.
+Bir katman degisirse, ondan sonraki katmanlar da tekrar build olur.
+
+Yanlis siralama (yavas):
+
+```dockerfile
+COPY . .
+RUN npm install
+```
+
+Bu siralamada kodda en ufak degisiklik bile `COPY . .` katmanini degistirir.
+`COPY . .` degistigi icin alttaki `RUN npm install` da yeniden calisir.
+
+Dogru siralama (hizli):
+
+```dockerfile
+COPY package*.json ./
+RUN npm install
+COPY . .
+```
+
+Bu siralamada:
+- Sadece kod (`app.js`, `src/*`) degisirse:
+  `COPY package*.json` ve `RUN npm install` cache'den gelir, sadece son `COPY . .` yenilenir.
+- `package-lock.json` veya `package.json` degisirse:
+  `npm install` tekrar calisir (zaten dogru davranis budur, cunku bagimlilik degisti).
+
+Kisa ozet:
+- Kod degisimi -> hizli rebuild
+- Bagimlilik degisimi -> gerekli rebuild
+
+Ek not: `.dockerignore` kullanarak `node_modules`, `.git`, log dosyalari gibi gereksiz dosyalari build context disinda birakirsan cache daha stabil ve build daha hizli olur.

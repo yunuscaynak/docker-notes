@@ -1,6 +1,6 @@
 # Docker Komutlari (Proje Notlari)
 
-Bu dokuman, notlari 28 tekil Markdown sayfasina bolunmus halde sunar.
+Bu dokuman, notlari 29 tekil Markdown sayfasina bolunmus halde sunar.
 
 ## Yeni Baslayanlar Icin Ogrenme Sirasi
 
@@ -9,7 +9,7 @@ Bu dokuman, notlari 28 tekil Markdown sayfasina bolunmus halde sunar.
 3. Dockerfile ve Compose: [Sayfa 10](./docs/10-dockerfile-kisa-ozet.md), [Sayfa 11](./docs/11-docker-compose-kullanimi.md)
 4. Veri ve ag: [Sayfa 13](./docs/13-docker-volumes-kalici-veri-yonetimi.md), [Sayfa 14](./docs/14-docker-network.md), [Sayfa 15](./docs/15-environment-variables-ortam-degiskenleri.md)
 5. Bakim ve gozlem: [Sayfa 20](./docs/20-docker-prune-temizlik-komutlari.md), [Sayfa 21](./docs/21-docker-inspect.md), [Sayfa 22](./docs/22-docker-stats.md), [Sayfa 27](./docs/27-troubleshooting.md)
-6. Ileri konular: [Sayfa 17](./docs/17-multi-stage-build.md), [Sayfa 23](./docs/23-health-checks.md), [Sayfa 24](./docs/24-restart-policies.md), [Sayfa 26](./docs/26-security-best-practices.md)
+6. Ileri konular: [Sayfa 17](./docs/17-multi-stage-build.md), [Sayfa 23](./docs/23-health-checks.md), [Sayfa 24](./docs/24-restart-policies.md), [Sayfa 26](./docs/26-security-best-practices.md), [Sayfa 30](./docs/30-docker-dev-prod-ayrimi.md)
 
 ## Sayfalar
 
@@ -41,3 +41,4 @@ Bu dokuman, notlari 28 tekil Markdown sayfasina bolunmus halde sunar.
 26. [Sayfa 27 - 27. Troubleshooting](./docs/27-troubleshooting.md)
 27. [Sayfa 28 - 28. Docker Commit (Acil Durum)](./docs/28-docker-commit-acil-durum.md)
 28. [Sayfa 29 - 29. Docker Export/Import](./docs/29-docker-export-import.md)
+29. [Sayfa 30 - 30. Docker'da Dev ve Prod Ayrimi](./docs/30-docker-dev-prod-ayrimi.md)
